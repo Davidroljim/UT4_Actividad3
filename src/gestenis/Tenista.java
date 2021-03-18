@@ -4,11 +4,19 @@ import java.io.*;
 import java.util.ArrayList;
 
 
+/**
+ * @author david
+ *
+ */
 public class Tenista {
     private String nombre;
     private int edad;
     private ArrayList<Torneo> palmares;
     
+    /**
+     * @param nombre
+     * @param edad
+     */
     Tenista(String nombre,int edad){
         this.nombre=nombre;
         this.edad=edad;
@@ -33,8 +41,8 @@ public class Tenista {
     }
 
     /**
-     * Nos devuelve la edad del tenista
-     * @return la edad
+     * 
+     * @return Nos devuelve la edad del tenista
      */
     public int getEdad() {
         return edad;
@@ -80,9 +88,9 @@ public class Tenista {
     }
     /**
      * Carga en fichero el archivo seleccionado e introduce
-     * sus datos en el ArrayList Tenista y devuelve lista
+     * sus datos en el ArrayList Tenista
      * @param fichero
-     * @return
+     * @return devuelve lista
      */
 	public static ArrayList<Tenista> cargar(File fichero){
         ArrayList<Tenista> l = null;
@@ -102,10 +110,9 @@ public class Tenista {
     }
     /**
      * Graba en fichero los datos del ArrayList lista
-     * devolviendo true si ha sido todo correcto o false en caso contrario
      * @param lista
      * @param fichero
-     * @return
+     * @return true si ha sido todo correcto o false en caso contrario
      */
     public static boolean guardar(ArrayList<Tenista> lista, File fichero){
         try{
@@ -119,39 +126,5 @@ public class Tenista {
         }catch(IOException ioe){
             return false;
         }
-    }
-    
-    public static boolean cargarGuardar(ArrayList<Tenista> lista, File fichero){
-    	ArrayList<Tenista> l = null;
-        ObjectInputStream ficheroEntrada = null;
-        try{
-            ficheroEntrada = new ObjectInputStream(new FileInputStream(fichero));
-            l = (ArrayList<Tenista>) ficheroEntrada.readObject();
-           
-            cierraFichero(ficheroEntrada);
-
-        }catch(ClassNotFoundException onfe){
-            return false;
-        }catch(FileNotFoundException fnfe){
-            return false;
-        }catch(IOException ioe){
-            return false;
-        }
-        try{
-            ObjectOutputStream ficheroSalida = new ObjectOutputStream(new FileOutputStream(fichero));
-            ficheroSalida.writeObject(lista);
-            ficheroSalida.flush();
-            ficheroSalida.close();
-            return true;
-        }catch(FileNotFoundException fnfe){
-            return false;
-        }catch(IOException ioe){
-            return false;
-        }
-        
-    }
-    
-    public static void cierraFichero(ObjectInputStream ficheroEntrada) throws IOException {
-    	ficheroEntrada.close();
     }
 }
